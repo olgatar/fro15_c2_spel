@@ -178,15 +178,7 @@ function changesGuessChord() {
   startButton.style.visibility='hidden';
 
   x = Math.floor((Math.random() * 5));
-
   checkX = x;
-
-  if (x == checkX) {
-    x = Math.floor((Math.random() * 5));
-  }
-  else {
-    checkX = x;
-  }
 
     chordsNoName[x+b].className = "img-rounded";
     chordToGuessLink.innerHTML = "";
@@ -252,14 +244,13 @@ function changesGuessChord() {
           window.location.reload();
         }
         else {
-          x = Math.floor((Math.random() * 5));
 
-          if (x == checkX) {
-            x = Math.floor((Math.random() * 5));
-          }
-          else {
-            checkX = x;
-          }
+        x = Math.floor((Math.random() * 5));
+
+        while (x == checkX) {
+          x = Math.floor((Math.random() * 5));
+        }
+        checkX = x;
 
         chordsNoName[x+b].className = "img-rounded";
         chordToGuessLink.innerHTML = "";
