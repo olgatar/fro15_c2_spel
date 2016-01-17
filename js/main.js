@@ -19,9 +19,24 @@ var addSound = function(src, altText) {
 // Array of images
 var chordsToShow = [];
 var chordsNoName = [];
+var chordsDefault = [];
+var chordQuestion = [];
+
+// Array of chords names
+var chordNames = ["A", "Am", "A7", "B", "Bm", "B7", "C", "Cm", "C7", "D", "Dm", "D7", "E", "Em", "E7", "F", "Fm", "F7", "G", "Gm"];
 
 // Array of sounds
 var chordsAudio = [];
+
+// Add all image to chords default array
+chordsDefault.push(addImage("img/musicnotes.png", "musicnotes"));
+chordsDefault.push(addImage("img/musicnotes.png", "musicnotes"));
+chordsDefault.push(addImage("img/musicnotes.png", "musicnotes"));
+chordsDefault.push(addImage("img/musicnotes.png", "musicnotes"));
+chordsDefault.push(addImage("img/musicnotes.png", "musicnotes"));
+
+// Add image to chords question array
+chordQuestion.push(addImage("img/question.jpg", "question"));
 
 // Add all images to chords to show array
 chordsToShow.push(addImage("img/A.png", "A"));
@@ -88,3 +103,153 @@ chordsAudio.push(addSound("audio/Fm.mp3", "Fm"));
 chordsAudio.push(addSound("audio/F7.mp3", "F7"));
 chordsAudio.push(addSound("audio/G.mp3", "G"));
 chordsAudio.push(addSound("audio/Gm.mp3", "Gm"));
+
+var infoDiv = document.getElementById('infoDiv');
+infoDiv.style.visibility='hidden';
+
+// Declare all buttons
+var showButton = document.getElementById('showButton');
+var startButton = document.getElementById('startButton');
+var startOverButton = document.getElementById('startOverButton');
+
+// Declare all spans
+var spanCorrect = document.getElementById('spanCorrect');
+var spanWrong = document.getElementById('spanWrong');
+
+// Declare all li
+var chords = document.querySelectorAll(".chords-a");
+
+// Declare chord to guess
+var chordToGuess = document.getElementById('chordToGuess');
+var chordToGuessLink = document.getElementById('chordToGuessLink');
+
+var x;
+b = 0;
+roundCount = 1;
+
+showButton.onclick = function() {
+$("ul[id*=chordsPanel-ul] li").unbind();
+
+  infoDiv.style.visibility='visible';
+
+  var i;
+
+  for (i = 0; i < chords.length; i++) {
+    chords[i].innerHTML = "";
+    chordsToShow[i].className = "img-rounded";
+    chords[i].appendChild(chordsToShow[i+b]);
+    chords[i].appendChild(chordsAudio[i+b]);
+  }
+
+  $("ul[id*=chordsPanel-ul] li").on('click',function (event) {
+    event.stopImmediatePropagation();
+    var a = $(this).index();
+    chordsAudio[a+b].play();
+  });
+};
+
+
+correctCount = 0;
+wrongCount = 0;
+
+
+spanRound.innerHTML = roundCount;
+spanCorrect.innerHTML = correctCount;
+spanWrong.innerHTML = wrongCount;
+
+startButton.onclick = function() {
+
+  $("ul[id*=chordsPanel-ul] li").unbind();
+
+  showButton.style.visibility='hidden';
+
+  for (i = 0; i < chords.length; i++) {
+    chords[i].innerHTML = "";
+    chordsDefault[i].className = "img-rounded";
+    chords[i].innerHTML = chordNames[i+b];
+  }
+
+  changesGuessChord();
+
+};
+
+function changesGuessChord() {
+
+  startButton.style.visibility='hidden';
+
+  x = Math.floor((Math.random() * 5));
+  chordsNoName[x+b].className = "img-rounded";
+  chordToGuessLink.innerHTML = "";
+  chordToGuessLink.appendChild(chordsNoName[x+b]);
+
+  $("#chordToGuessLink").on('click',function (event) {
+    event.stopImmediatePropagation();
+    chordsAudio[x+b].play();
+  });
+
+
+  $("ul[id*=chordsPanel-ul] li").on('click',function (event) {
+    event.stopImmediatePropagation();
+
+    var y = $(this).index();
+
+      if ((y+b) == (x+b)) {
+        correctCount += 1;
+        spanCorrect.innerHTML = correctCount;
+      }
+      else {
+        wrongCount += 1;
+        spanWrong.innerHTML = wrongCount;
+      }
+
+      if (correctCount >= 5) {
+
+        infoDiv.style.visibility='hidden';
+
+        roundCount = roundCount + 1;
+        if (roundCount < 5) {
+          alert("Congratulations! You finished this Round.");
+          spanRound.innerHTML = roundCount;
+          $("ul[id*=chordsPanel-ul] li").unbind();
+        }
+        else {
+          alert("Congratulations! You are a Chords Master! Welcome back and play again.");
+          window.location.reload();
+        }
+
+        showButton.style.visibility='visible';
+        startButton.style.visibility='visible';
+
+        for (i = 0; i < chords.length; i++) {
+          chords[i].innerHTML = "";
+          chordsDefault[i].className = "img-rounded";
+          chords[i].appendChild(chordsDefault[i]);
+        }
+
+        chordToGuessLink.innerHTML = "";
+        chordToGuessLink.appendChild(chordQuestion[0]);
+
+        correctCount = 0;
+        wrongCount = 0;
+        spanCorrect.innerHTML = correctCount;
+        spanWrong.innerHTML = wrongCount;
+
+        b = b + 5;
+
+      }
+      else if (wrongCount >= 2) {
+        alert("Sorry, too many wrongs! Start over from Round 1.");
+        window.location.reload();
+      }
+      else {
+      x = Math.floor((Math.random() * 5));
+      chordsNoName[x+b].className = "img-rounded";
+      chordToGuessLink.innerHTML = "";
+      chordToGuessLink.appendChild(chordsNoName[x+b]);
+      }
+  });
+};
+
+startOverButton.onclick = function() {
+  window.location.reload();
+};
