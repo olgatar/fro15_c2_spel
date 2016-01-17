@@ -177,77 +177,87 @@ function changesGuessChord() {
 
   startButton.style.visibility='hidden';
 
+  checkX = x;
+
   x = Math.floor((Math.random() * 5));
-  chordsNoName[x+b].className = "img-rounded";
-  chordToGuessLink.innerHTML = "";
-  chordToGuessLink.appendChild(chordsNoName[x+b]);
 
-  $("#chordToGuessLink").on('click',function (event) {
-    event.stopImmediatePropagation();
-    chordsAudio[x+b].play();
-  });
+  if (x == checkX) {
+    x = Math.floor((Math.random() * 5));
+  }
+  else {
+    chordsNoName[x+b].className = "img-rounded";
+    chordToGuessLink.innerHTML = "";
+    chordToGuessLink.appendChild(chordsNoName[x+b]);
+
+    $("#chordToGuessLink").on('click',function (event) {
+      event.stopImmediatePropagation();
+      chordsAudio[x+b].play();
+    });
 
 
-  $("ul[id*=chordsPanel-ul] li").on('click',function (event) {
-    event.stopImmediatePropagation();
+    $("ul[id*=chordsPanel-ul] li").on('click',function (event) {
+      event.stopImmediatePropagation();
 
-    var y = $(this).index();
+      var y = $(this).index();
 
-      if ((y+b) == (x+b)) {
-        correctCount += 1;
-        spanCorrect.innerHTML = correctCount;
-      }
-      else {
-        wrongCount += 1;
-        spanWrong.innerHTML = wrongCount;
-      }
-
-      if (correctCount >= 5) {
-
-        infoDiv.style.visibility='hidden';
-
-        roundCount = roundCount + 1;
-        if (roundCount < 5) {
-          alert("Congratulations! You finished this Round.");
-          spanRound.innerHTML = roundCount;
-          $("ul[id*=chordsPanel-ul] li").unbind();
+        if ((y+b) == (x+b)) {
+          correctCount += 1;
+          spanCorrect.innerHTML = correctCount;
         }
         else {
-          alert("Congratulations! You are a Chords Master! Welcome back and play again.");
+          wrongCount += 1;
+          spanWrong.innerHTML = wrongCount;
+        }
+
+        if (correctCount >= 5) {
+
+          infoDiv.style.visibility='hidden';
+
+          roundCount = roundCount + 1;
+          if (roundCount < 5) {
+            alert("Congratulations! You finished this Round.");
+            spanRound.innerHTML = roundCount;
+            $("ul[id*=chordsPanel-ul] li").unbind();
+          }
+          else {
+            alert("Congratulations! You are a Chords Master! Welcome back and play again.");
+            window.location.reload();
+          }
+
+          showButton.style.visibility='visible';
+          startButton.style.visibility='visible';
+
+          for (i = 0; i < chords.length; i++) {
+            chords[i].innerHTML = "";
+            chordsDefault[i].className = "img-rounded";
+            chords[i].appendChild(chordsDefault[i]);
+          }
+
+          chordToGuessLink.innerHTML = "";
+          chordToGuessLink.appendChild(chordQuestion[0]);
+
+          correctCount = 0;
+          wrongCount = 0;
+          spanCorrect.innerHTML = correctCount;
+          spanWrong.innerHTML = wrongCount;
+
+          b = b + 5;
+
+        }
+        else if (wrongCount >= 2) {
+          alert("Sorry, too many wrongs! Start over from Round 1.");
           window.location.reload();
         }
-
-        showButton.style.visibility='visible';
-        startButton.style.visibility='visible';
-
-        for (i = 0; i < chords.length; i++) {
-          chords[i].innerHTML = "";
-          chordsDefault[i].className = "img-rounded";
-          chords[i].appendChild(chordsDefault[i]);
-        }
-
+        else {
+        x = Math.floor((Math.random() * 5));
+        chordsNoName[x+b].className = "img-rounded";
         chordToGuessLink.innerHTML = "";
-        chordToGuessLink.appendChild(chordQuestion[0]);
+        chordToGuessLink.appendChild(chordsNoName[x+b]);
+        }
+    });
 
-        correctCount = 0;
-        wrongCount = 0;
-        spanCorrect.innerHTML = correctCount;
-        spanWrong.innerHTML = wrongCount;
+  }
 
-        b = b + 5;
-
-      }
-      else if (wrongCount >= 2) {
-        alert("Sorry, too many wrongs! Start over from Round 1.");
-        window.location.reload();
-      }
-      else {
-      x = Math.floor((Math.random() * 5));
-      chordsNoName[x+b].className = "img-rounded";
-      chordToGuessLink.innerHTML = "";
-      chordToGuessLink.appendChild(chordsNoName[x+b]);
-      }
-  });
 };
 
 startOverButton.onclick = function() {
