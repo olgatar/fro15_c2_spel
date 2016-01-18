@@ -40,6 +40,7 @@ h2, h4 {
 
 .info {
   font-size: 1.2em;
+  margin: 20px 0;
 }
 
 ul {
@@ -74,6 +75,7 @@ ul {
 .results {
     margin: 0 0 15px;
     margin-bottom: 20px;
+    font-weight: bold;
 }
 
 img {
