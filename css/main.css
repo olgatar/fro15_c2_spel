@@ -31,8 +31,8 @@ h2, h4 {
   padding-bottom: 60px;
 }
 
-.panel{
-  margin-top: 20px;
+.panel {
+  margin-top: 15px;
   background-color: #000;
   border: none !important;
   font-size: 1em;
@@ -40,7 +40,7 @@ h2, h4 {
 
 .info {
   font-size: 1.2em;
-  margin: 20px 0;
+  margin: 5px 0;
 }
 
 ul {
@@ -53,8 +53,7 @@ ul {
   padding: 10px !important;
 }
 
-.chordToGuess,
-.gameButtons {
+.chordToGuess {
   padding: 5px;
   margin-top: 15px;
 }
@@ -65,10 +64,10 @@ ul {
 }
 
 .gameButton {
-  margin: 5px 0;
-  font-size: 0.8em;
+  padding: 5px 5px;
+  font-size: 0.7em;
   font-weight: bold;
-  color: #000;
+  color: #fff;
 }
 
 
@@ -76,6 +75,7 @@ ul {
     margin: 0 0 15px;
     margin-bottom: 20px;
     font-weight: bold;
+    font-size: 0.8em;
 }
 
 img {
