@@ -35,7 +35,7 @@ h2, h4 {
   margin-top: 20px;
   background-color: #000;
   border: none !important;
-  font-size: 1.5em;
+  font-size: 1em;
 }
 
 .info {
@@ -49,20 +49,22 @@ ul {
 .chords {
   list-style: none;
   display: inline-block;
-  height: 150px;
   padding: 10px !important;
 }
 
 .chordToGuess,
-.resultField,
 .gameButtons {
-  height: 200px;
   padding: 5px;
   margin-top: 15px;
 }
 
+.chordToGuess,
+.resultField {
+  margin-top: 30px;
+}
+
 .gameButton {
-  margin: 15px 0;
+  margin: 5px 0;
   font-size: 0.8em;
   font-weight: bold;
   color: #000;
@@ -71,11 +73,7 @@ ul {
 
 .results {
     margin: 0 0 15px;
-}
-
-
-.results {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 img {
@@ -119,4 +117,14 @@ footer {
   margin: 0 auto;
   padding: 10px 0px;
   font-size: 1em;
+}
+
+/* Media queries */
+
+@media screen and (min-width: 360px)  {
+
+  .panel {
+    font-size: 1.4em;
+  }
+
 }

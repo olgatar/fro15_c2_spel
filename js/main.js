@@ -136,8 +136,8 @@ $("ul[id*=chordsPanel-ul] li").unbind();
 
   for (i = 0; i < chords.length; i++) {
     chords[i].innerHTML = "";
-    chordsToShow[i].className = "img-rounded";
     chords[i].appendChild(chordsToShow[i+b]);
+    chordsToShow[i].className = "img-rounded";
     chords[i].appendChild(chordsAudio[i+b]);
   }
 
