@@ -127,10 +127,14 @@ var x;
 b = 0;
 roundCount = 1;
 
+infoDiv.innerHTML = "Click on SHOW button to show the Chords.";
+infoDiv.style.visibility='visible';
+
 showButton.onclick = function() {
 $("ul[id*=chordsPanel-ul] li").unbind();
 
-  infoDiv.style.visibility='visible';
+  infoDiv.innerHTML = "Click on Chord Image to play the sound. When ready click on START.";
+  chordsToShow.className = "img-rounded";
 
   var i;
 
@@ -145,6 +149,7 @@ $("ul[id*=chordsPanel-ul] li").unbind();
     event.stopImmediatePropagation();
     var a = $(this).index();
     chordsAudio[a+b].play();
+    event.preventDefault();
   });
 };
 
@@ -162,6 +167,7 @@ startButton.onclick = function() {
   $("ul[id*=chordsPanel-ul] li").unbind();
 
   showButton.style.visibility='hidden';
+  infoDiv.innerHTML = "Click on Chord Image to play the sound.";
 
   for (i = 0; i < chords.length; i++) {
     chords[i].innerHTML = "";
@@ -187,6 +193,7 @@ function changesGuessChord() {
     $("#chordToGuessLink").on('click',function (event) {
       event.stopImmediatePropagation();
       chordsAudio[x+b].play();
+      event.preventDefault();
     });
 
 
@@ -206,7 +213,7 @@ function changesGuessChord() {
 
         if (correctCount >= 5) {
 
-          infoDiv.style.visibility='hidden';
+          infoDiv.innerHTML = "Click on SHOW button to show the Chords.";
 
           roundCount = roundCount + 1;
           if (roundCount < 5) {
@@ -256,6 +263,7 @@ function changesGuessChord() {
         chordToGuessLink.innerHTML = "";
         chordToGuessLink.appendChild(chordsNoName[x+b]);
         }
+        event.preventDefault();
     });
 
 };

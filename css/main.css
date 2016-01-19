@@ -39,7 +39,7 @@ h2, h4 {
 }
 
 .info {
-  font-size: 1.2em;
+  font-size: 0.8em;
   margin: 5px 0;
 }
 
@@ -72,10 +72,10 @@ ul {
 
 
 .results {
-    margin: 0 0 15px;
+    margin: 15px 0;
     margin-bottom: 20px;
     font-weight: bold;
-    font-size: 0.8em;
+    font-size: 0.7em;
 }
 
 img {
@@ -126,7 +126,14 @@ footer {
 @media screen and (min-width: 360px)  {
 
   .panel {
-    font-size: 1.4em;
+    font-size: 1.6em;
+  }
+  .info {
+    font-size: 1.2em;
+  }
+
+  .results {
+      margin: 30px 0;
   }
 
 }
